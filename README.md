@@ -9,11 +9,8 @@ BioReino é uma plataforma online fictícia de cursos de biologia, possuindo div
 - Site do BioReino: https://bioreino.vercel.app
 
 
-# Retomada do desenvolvimento - 14/03/2023 🎉 
+# Retomada do desenvolvimento - 14/06/2024 🎉 
 
 #### Checklist:
-- [x] Migrar o código para Flutter
-- [x] Terminar a documentação do projeto
-- [x] Desenvolver sistema de login e conta
-- [x] Possibilidade de ver aulas
-- [x] Sessão com todos os cursos
+- [ ] Reconfiguração do código de consumo da API;
+- [ ] Refatoração/Melhora no código antigo
