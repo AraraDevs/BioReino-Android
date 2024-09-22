@@ -12,7 +12,7 @@ class EmptyList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: 160,
+        width: MediaQuery.of(context).size.width * 0.5,
         child: Text(
           message,
           textAlign: TextAlign.center,

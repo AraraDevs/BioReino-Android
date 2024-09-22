@@ -8,6 +8,7 @@ class BRAppBar extends AppBar {
           scrolledUnderElevation: scroolElevation ? 4 : 0,
           centerTitle: true,
           leading: leading,
+          surfaceTintColor: Colors.transparent,
           title: Padding(
             padding: const EdgeInsets.only(left: 0.0),
             child: SvgPicture.asset(
