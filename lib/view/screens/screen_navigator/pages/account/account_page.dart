@@ -1,4 +1,4 @@
-import 'package:bioreino_mobile/controller/database/dao/student_dao.dart';
+import 'package:bioreino_mobile/controller/dio/dao/student_dao.dart';
 import 'package:bioreino_mobile/controller/screens/screen_navigator/updatable_drawer_mixin.dart';
 import 'package:bioreino_mobile/controller/util/theme_util.dart';
 import 'package:bioreino_mobile/model/student.dart';
@@ -42,7 +42,7 @@ class AccountPage extends StatelessWidget {
                 "Data de inscrição: ",
                 DateFormat("dd/MM/yyyy", "br").format(student.createdAt),
               ),
-              InfoText(theme, "Plano: ", student.plan.toUpperCase())
+              InfoText(theme, "Plano: ", "student.plan.toUpperCase()")
             ],
           ),
         ),

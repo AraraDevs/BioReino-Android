@@ -1,4 +1,3 @@
-import 'package:bioreino_mobile/controller/database/mongodb_database.dart';
 import 'package:bioreino_mobile/controller/screens/login_screen/login_controller.dart';
 import 'package:bioreino_mobile/controller/screens/screen_navigator/pages_enum.dart';
 import 'package:bioreino_mobile/controller/screens/screen_navigator/updatable_drawer_mixin.dart';
@@ -9,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 Future<void> connectAndChangeScreen(BuildContext context) async {
-  final bool connected = await Database.connect();
+  final bool connected = true;
   if (context.mounted) {
     if (connected) {
       // ignore: use_build_context_synchronously

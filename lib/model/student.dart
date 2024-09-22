@@ -1,41 +1,42 @@
-import 'package:bioreino_mobile/controller/database/dao/student_dao.dart';
 import 'package:bioreino_mobile/model/course.dart';
 import 'package:bioreino_mobile/model/lesson.dart';
-import 'package:mongo_dart/mongo_dart.dart';
-
-import '../controller/database/mongodb_database.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Student {
-  final ObjectId? id;
+  final String? id;
+  final String token;
   final String name;
   final String plan;
   final DateTime createdAt;
   final String email;
   String? password;
-  Map<String, dynamic>? coursesProgress;
+  List<dynamic>? coursesProgress;
   Map<String, dynamic>? lastCourse;
 
-  Student(
+  Student({
     this.id,
-    this.name,
-    this.plan,
-    this.createdAt,
-    this.email,
+    required this.token,
+    required this.name,
+    required this.plan,
+    required this.createdAt,
+    required this.email,
     this.password,
     this.coursesProgress,
     this.lastCourse,
-  );
+  });
 
-  factory Student.fromMap(Map<String, dynamic> map) {
+  static Future<Student> fromMap(Map<String, dynamic> map) async {
+    final preferences = await SharedPreferences.getInstance();
     return Student(
-      null,
-      map["name"],
-      map["plan"],
-      map["createdAt"],
-      map["email"],
-      map["password"],
-      map["coursesProgress"],
-      map["lastCourse"],
+      id: null,
+      token: preferences.getString("token")!,
+      name: map["name"],
+      plan: map["plan"],
+      createdAt: map["createdAt"],
+      email: map["email"],
+      password: map["password"],
+      coursesProgress: map["coursesProgress"],
+      lastCourse: map["lastCourse"],
     );
   }
 
@@ -53,29 +54,19 @@ class Student {
   }
 
   double getProgress(Course course) {
-    if (coursesProgress?[course.name] == null) {
-      return 0;
-    } else {
-      final List<dynamic> lessons = coursesProgress?[course.name] ?? [];
-      final int? max = course.lessons?.length;
-
-      if (max == null) return 0;
-
-      int completed = 0;
-      for (var _ in lessons) {
-        completed++;
+    for (var progressMap in coursesProgress!) {
+      if (progressMap["title"] == course.name) {
+        return (progressMap["progress"]).toDouble();
       }
-
-      return (completed * 100) / max;
     }
+    return 0.0;
   }
 
-  bool isLessonComplete(String courseName, String lessonTitle) {
-    if (coursesProgress != null) {
-      List progressList = coursesProgress![courseName] ?? [];
-      for (var lessonNameInList in progressList) {
-        if (lessonNameInList == lessonTitle) {
-          return true;
+  bool isLessonComplete(String courseName, String id) {
+    for (var progressMap in coursesProgress!) {
+      if (progressMap["title"] == courseName) {
+        for (var lessonId in progressMap["lessonsViewed"]) {
+          if (lessonId == id) return true;
         }
       }
     }
@@ -83,38 +74,12 @@ class Student {
   }
 
   void addProgress(Course course, {Lesson? lesson}) {
-    coursesProgress ??= {};
-    if (coursesProgress![course.name] == null) {
-      coursesProgress![course.name] = [];
-    }
-    if (lesson != null) {
-      List<dynamic> progressList = coursesProgress![course.name]!;
-      if (!progressList.contains(lesson.title)) {
-        progressList.add(lesson.title);
-      }
-    }
-    _addLastCourse(course, lesson: lesson);
-    Database.studentsCollection!.updateOne(
-      where.eq("email", email),
-      ModifierBuilder().set("coursesProgress", coursesProgress),
-    );
+    // TODO: Implement addProgress
+    throw UnimplementedError();
   }
 
   void _addLastCourse(Course course, {Lesson? lesson}) {
-    lastCourse = {
-      "courseTitle": course.name,
-      "professor": course.professor,
-      "imageUrl": course.imageUrl,
-      "lastLesson": lesson != null
-          ? {
-              "lessonTitle": lesson.title,
-              "lessonDescription": lesson.description,
-            }
-          : null,
-    };
-    Database.studentsCollection!.updateOne(
-      {"email": StudentDAO.student!.email},
-      ModifierBuilder().set("lastCourse", lastCourse),
-    );
+    // TODO: Implement _addLastCourse
+    throw UnimplementedError();
   }
 }

@@ -1,4 +1,4 @@
-import 'package:bioreino_mobile/controller/database/dao/categories_dao.dart';
+import 'package:bioreino_mobile/controller/dio/dao/categories_dao.dart';
 import 'package:bioreino_mobile/model/category.dart';
 
 void organizeLists(

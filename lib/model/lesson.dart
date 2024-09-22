@@ -3,12 +3,14 @@ class Lesson {
   String description;
   String videoUrl;
   String transcription;
-  String courseTitle;
+  String id;
+  String slug;
 
   Lesson(Map<String, dynamic> map)
       : title = map["title"],
         description = map["description"],
         videoUrl = map["videoUrl"],
         transcription = map["transcription"],
-        courseTitle = map["courseTitle"];
+        id = map["_id"],
+        slug = map["slug"];
 }

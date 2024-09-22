@@ -22,22 +22,22 @@ class _LastCourseState extends State<LastCourse> {
             if (element.name == widget.lastCourse["courseTitle"]) {
               course = element;
               if (widget.lastCourse["lastLesson"] != null) {
-                for (var elementLesson in element.lessons!) {
+                for (var elementLesson in element.lessons) {
                   if (elementLesson.title ==
                       widget.lastCourse["lastLesson"]["lessonTitle"]) {
                     lesson = elementLesson;
                     complete = StudentDAO.student!.isLessonComplete(
                       element.name,
-                      lesson.title,
+                      lesson.id,
                     );
                     break;
                   }
                 }
-              } else if (element.lessons != null) {
-                lesson = element.lessons![0];
+              } else if (element.lessons.isNotEmpty) {
+                lesson = element.lessons[0];
                 complete = StudentDAO.student!.isLessonComplete(
                   element.name,
-                  element.lessons![0].title,
+                  element.lessons[0].id,
                 );
               } else {
                 return const NoLastCourse();

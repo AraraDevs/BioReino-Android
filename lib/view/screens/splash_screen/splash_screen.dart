@@ -1,6 +1,6 @@
 library splash_screen;
 
-import 'package:bioreino_mobile/controller/database/dao/student_dao.dart';
+import 'package:bioreino_mobile/controller/dio/dao/student_dao.dart';
 import 'package:bioreino_mobile/controller/screens/route_handler.dart';
 import 'package:bioreino_mobile/controller/util/theme_util.dart';
 import 'package:bioreino_mobile/view/global_components/assets/brassets.dart';

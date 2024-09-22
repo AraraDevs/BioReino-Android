@@ -1,6 +1,6 @@
 library lessons_page;
 
-import 'package:bioreino_mobile/controller/database/dao/student_dao.dart';
+import 'package:bioreino_mobile/controller/dio/dao/student_dao.dart';
 import 'package:bioreino_mobile/controller/screens/route_handler.dart';
 import 'package:bioreino_mobile/controller/util/theme_util.dart';
 import 'package:bioreino_mobile/model/course.dart';
@@ -133,13 +133,13 @@ class _LessonsScreenState extends State<LessonsScreen> {
 
   List<Widget> _generateLessonsList(Course course) {
     List<Widget> list = List.generate(
-      course.lessons!.length,
+      course.lessons.length,
       (index) => LessonCard(
         course,
-        course.lessons![index],
+        course.lessons[index],
         StudentDAO.student!.isLessonComplete(
           course.name,
-          course.lessons![index].title,
+          course.lessons[index].id,
         ),
         () => setState(() {}),
       ),

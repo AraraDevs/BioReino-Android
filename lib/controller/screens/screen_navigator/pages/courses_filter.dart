@@ -1,6 +1,6 @@
-import 'package:bioreino_mobile/controller/database/dao/categories_dao.dart';
-import 'package:bioreino_mobile/controller/database/dao/courses_dao.dart';
-import 'package:bioreino_mobile/controller/database/dao/student_dao.dart';
+import 'package:bioreino_mobile/controller/dio/dao/categories_dao.dart';
+import 'package:bioreino_mobile/controller/dio/dao/courses_dao.dart';
+import 'package:bioreino_mobile/controller/dio/dao/student_dao.dart';
 import 'package:bioreino_mobile/controller/util/string_util.dart';
 import 'package:bioreino_mobile/view/screens/screen_navigator/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
