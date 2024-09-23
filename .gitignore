@@ -44,7 +44,7 @@ app.*.map.json
 /android/app/release
 
 # Credentials
-/lib/controller/database/credentials.dart
+/lib/controller/dio/private/credentials.dart
 
 
 # Image credits
