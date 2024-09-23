@@ -1,3 +1,4 @@
+import 'package:bioreino_mobile/controller/dio/dao/student_dao.dart';
 import 'package:bioreino_mobile/model/course.dart';
 import 'package:bioreino_mobile/model/lesson.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,10 +27,9 @@ class Student {
   });
 
   static Future<Student> fromMap(Map<String, dynamic> map) async {
-    final preferences = await SharedPreferences.getInstance();
     return Student(
-      id: null,
-      token: preferences.getString("token")!,
+      id: map["_id"],
+      token: map["token"],
       name: map["name"],
       plan: map["plan"],
       createdAt: map["createdAt"],
@@ -43,6 +43,7 @@ class Student {
   Map<String, dynamic> toMap() {
     return {
       "_id": id,
+      "token": token,
       "name": name,
       "plan": plan,
       "createdAt": createdAt.millisecondsSinceEpoch,
@@ -74,12 +75,10 @@ class Student {
   }
 
   void addProgress(Course course, {Lesson? lesson}) {
-    // TODO: Implement addProgress
-    throw UnimplementedError();
+    StudentDAO.updateProgress(course, lesson: lesson);
   }
 
-  void _addLastCourse(Course course, {Lesson? lesson}) {
-    // TODO: Implement _addLastCourse
-    throw UnimplementedError();
+  void addLastCourse(Course course, {Lesson? lesson}) {
+    StudentDAO.updateLastCourse(course, lesson);
   }
 }

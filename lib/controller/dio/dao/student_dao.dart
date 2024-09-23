@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:bcrypt/bcrypt.dart';
 import 'package:bioreino_mobile/controller/dio/dio_client.dart';
+import 'package:bioreino_mobile/model/course.dart';
+import 'package:bioreino_mobile/model/lesson.dart';
 import 'package:bioreino_mobile/model/student.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -64,6 +66,7 @@ abstract class StudentDAO {
       coursesProgress: studentData['coursesProgress'],
       lastCourse: studentData['lastCourse'],
     );
+    _storeStudentPrefs(password);
     return LoginState.logged;
   }
 
@@ -95,6 +98,35 @@ abstract class StudentDAO {
   static Map<String, dynamic> defineQuery() {
     // TODO: Implement defineQuery
     return throw UnimplementedError();
+  }
+
+  static Future<void> updateLastCourse(Course course, Lesson? lesson) async {
+    final dioClient = DioClient();
+    await dioClient.patch(
+      _getEndpoint('lastcourse'),
+      {
+        "courseTitle": course.name,
+        "slug": course.slug,
+        "professor": course.professor,
+        "imageUrl": course.imageUrl,
+        "lessonTitle": lesson?.title ?? course.lessons[0].title,
+        "lessonDescription":
+            lesson?.description ?? course.lessons[0].description,
+        "slugLesson": lesson?.slug ?? course.lessons[0].slug,
+      },
+    );
+  }
+
+  static Future<void> updateProgress(Course course, {Lesson? lesson}) async {
+    final dioClient = DioClient();
+    await dioClient.patch(
+      _getEndpoint('courseprogress'),
+      {
+        "courseData": course.toMap(),
+        "lessonData": lesson?.toMap() ?? course.lessons[0].toMap(),
+      },
+      logId: course.slug,
+    );
   }
 }
 

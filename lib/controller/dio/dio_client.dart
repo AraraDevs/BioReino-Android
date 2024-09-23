@@ -14,17 +14,19 @@ class DioClient {
 
   static Dio? _dio;
 
+  Options _getOptions(String? token) {
+    return Options(
+      headers: {
+        "Authorization": "Bearer ${token ?? StudentDAO.student?.token}",
+        "x-api-key": APICredentials.apiKey,
+      },
+    );
+  }
+
   Future<Response?> get(String endpoint,
       {String logId = "GET", String? token}) async {
     try {
-      final response = await _dio!.get(
-        endpoint,
-        options: Options(
-          headers: {
-            "Authorization": "Bearer ${token ?? StudentDAO.student?.token}",
-          },
-        ),
-      );
+      final response = await _dio!.get(endpoint, options: _getOptions(token));
       Logger().i("GET (${response.realUri}) - $logId:\n\n${response.data}");
       return response;
     } catch (e) {
@@ -43,16 +45,32 @@ class DioClient {
       final response = await _dio!.post(
         endpoint,
         data: data,
-        options: Options(
-          headers: {
-            "Authorization": "Bearer ${token ?? StudentDAO.student?.token}",
-          },
-        ),
+        options: _getOptions(token),
       );
       Logger().i("POST (${response.realUri}) - $logId:\n\n${response.data}");
       return response;
     } catch (e) {
       Logger().e("Error POST - $logId:\n\n$e");
+      return null;
+    }
+  }
+
+  Future<Response?> patch(
+    String endpoint,
+    dynamic data, {
+    String logId = "PATCH",
+    String? token,
+  }) async {
+    try {
+      final response = await _dio!.patch(
+        endpoint,
+        data: data,
+        options: _getOptions(token),
+      );
+      Logger().i("PATCH (${response.realUri}) - $logId:\n\n${response.data}");
+      return response;
+    } catch (e) {
+      Logger().e("Error PATCH - $logId:\n\n$e");
       return null;
     }
   }

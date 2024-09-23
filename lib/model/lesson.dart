@@ -13,4 +13,15 @@ class Lesson {
         transcription = map["transcription"],
         id = map["_id"],
         slug = map["slug"];
+
+  Map<String, dynamic> toMap() {
+    return {
+      "title": title,
+      "description": description,
+      "videoUrl": videoUrl,
+      "transcription": transcription,
+      "_id": id,
+      "slug": slug,
+    };
+  }
 }
